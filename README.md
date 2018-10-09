@@ -2,11 +2,9 @@
 
 In this workshop, we are going to create a GraphQL API that integrates with an external REST API. We are going to create schemas and resolver functions and discover some best practices along the way.
 
-This workshop is broken up into steps that are separated by Git branches. Start with `step1` and move forward from there.
+This workshop is broken up into steps that are separated by Git branches. You're likely on the `master` branch now, which has some introductions. After you read through the comments in `server.js`, switch to the `step1` branch and move forward from there. The `step1-solution` branch has the solution for `step1` and so on.
 
 This app relies on [graphql-yoga](https://github.com/prisma/graphql-yoga) and [merge-graphql-schemas](https://github.com/okgrow/merge-graphql-schemas).
-
-Let's go!
 
 ## Installation
 
