@@ -1,22 +1,43 @@
 {
   "name": "graphql-workshop",
+  "description": "Workshop presented at JS@PayPal Spring 2018 where we build a GraphQL API w/ Node, Express and kraken-js",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "private": true,
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/mstuart/graphql-workshop#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mstuart/graphql-workshop.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/mstuart/graphql-workshop/issues"
   },
-  "homepage": "https://github.com/mstuart/graphql-workshop#readme",
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "nuke": "rm package-lock.json && rm -rf node_modules && npm i",
+    "start": "nodemon -e js,graphql -- --inspect ."
+  },
   "dependencies": {
-    "graphql-yoga": "^1.16.2"
+    "graphql-yoga": "^1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7",
+    "@babel/preset-env": "^7",
+    "@babel/register": "^7",
+    "nodemon": "^1.18.4",
+    "prettier": "^1.14.3"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false
   }
 }
