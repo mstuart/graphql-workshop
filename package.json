@@ -1,0 +1,22 @@
+{
+  "name": "graphql-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mstuart/graphql-workshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mstuart/graphql-workshop/issues"
+  },
+  "homepage": "https://github.com/mstuart/graphql-workshop#readme",
+  "dependencies": {
+    "graphql-yoga": "^1.16.2"
+  }
+}
