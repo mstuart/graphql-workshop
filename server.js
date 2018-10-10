@@ -3,8 +3,11 @@ import { invoke } from './graphql';
 
 const typeDefs = `
   type Query {
-    # A list of albums. See Album type
+    # Returns all albums
     albums: [Album]
+
+    # Find an album with a certain albumId
+    album(albumId: ID!): Album
   }
 
   type Album {
@@ -21,20 +24,13 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    // We're using an async function called "invoke" that hits the
-    // http://jsonplaceholder.typicode.com/ API.  We're fetching
-    // the GET /posts resource and returning it.
-    //
-    // By returning it, it's available to Album resolvers as "rootObj".
-    // "rootObj" is used for passing data from parent-to-child.
-    //
-    albums: async () => await invoke('/albums')
+    albums: async () => await invoke('/albums'),
 
-    // EXERCISE #1 -- Currently, we're returning the entire list of albums
-    //
-    // It's likely that our clients may want a single album with a given albumId.
-    // Let's create another field called "album" that takes a required parameter
-    // called "albumId" that returns that particular Album.
+    album: async (rootObj, { albumId }) => {
+      const albums = await invoke('/albums');
+
+      return albums.find(album => album.id === Number(albumId));
+    }
   },
 
   Album: {
