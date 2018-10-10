@@ -1,4 +1,4 @@
-# graphql-workshop
+# graphql-workshop <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/1024px-GraphQL_Logo.svg.png" width="50">
 
 [![PRs Welcome][prs-badge]][prs]
 [![Watch on GitHub][github-watch-badge]][github-watch]
