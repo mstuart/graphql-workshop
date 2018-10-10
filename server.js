@@ -14,38 +14,79 @@ const typeDefs = `
     # The Album's ID
     albumId: ID
 
-    # The User ID that is associated this album
-    userId: ID
-
     # The title of the album (Ex: "Nevermind")
     title: String
+
+    # The User associated with this album
+    user: User
+
+    # The User ID that is associated this album
+    userId: ID @deprecated
+  }
+
+  type User {
+    # The User's ID (Ex: "1")
+    userId: ID
+
+    # The User's name (Ex: "Leanne Graham")
+    name: String
+
+    # The User's username (Ex: "lgraham")
+    username: String
+
+    # The User's email (Ex: "lgraham@yahoo.com")
+    email: String
+
+    # The User's address. See Address type.
+    address: Address
+
+    # The User's phone number (Ex: "1-800-COLLECT")
+    phone: String
+
+    # The User's website (Ex: "google.com")
+    website: String
+
+    # The User's company. See Company type.
+    company: Company
+  }
+
+  type Address {
+    # The Address' first line (Ex: "123 Main St")
+    line1: String
+
+    # The Address' second line (Ex: "Apt 456")
+    line2: String
+
+    # The Address' city (Ex: "San Jose")
+    city: String
+
+    # The Address' postal code (Ex: "95050")
+    postalCode: String
+
+    # The Address' geo coordinates.  See GeoCoordinates type.
+    geoCoordinates: GeoCoordinates
+  }
+
+  type GeoCoordinates {
+    # Latitude (Ex: "-37.3159")
+    latitude: String
+
+    # Longitude (Ex: "91.1496")
+    longitude: String
+  }
+
+  type Company {
+    # Company's name (Ex: "Hooli")
+    name: String
+
+    # Company's catch phrase (Ex: "I like turtles")
+    catchPhrase: String
+
+    # Company's bullshit catch phrase (Ex: "Making the world a better place")
+    bullshit: String
   }
 `;
 
-// EXERCISE #3 -- Ok, let's turn this up to eleven!
-//
-// Our Album type has a "userId", but that's not that useful to clients.
-//
-// If this was REST, clients would be expected to make another round-trip to
-// the API to fetch associated User data.  We can do better than that!
-//
-// This exercise is broken into 3 parts.
-//
-// Part #1 --
-// We want to allow clients to query for User data within an Album.
-// Let's create a "link" between Album and User.
-// Let's start by deprecating the "userId" field.  Add a @deprecated directive next to it.
-//
-// Part #2 --
-// Inspect the http://jsonplaceholder.typicode.com/users/1 API.
-// In this example, it's user #1.
-// Create some schema types for this User.
-// Hint: The "address" and "company" fields within User should be types.
-// Be mindful of the return types you're using.
-//
-// Part #3 --
-// Create a "user" field within the Album type that returns your new User type
-// To get user data, use the `invoke` async function and hit the `GET /users/<id>` endpoint
 const resolvers = {
   Query: {
     albums: async (rootObj, { albumId, userId }) => {
@@ -70,7 +111,33 @@ const resolvers = {
   },
 
   Album: {
-    albumId: ({ id }) => id
+    albumId: ({ id }) => id,
+
+    // NOTE: This is only ever invoked if a "user" field is requested.
+    //
+    // If you offered this capability in REST, you would pay the cost of
+    // resolving "user" whether or not your client actually needed that field.
+    user: async ({ userId }) => await invoke(`/users/${userId}`)
+  },
+
+  User: {
+    userId: ({ id }) => id
+  },
+
+  Address: {
+    line1: ({ street }) => street,
+    line2: ({ suite }) => suite,
+    postalCode: ({ zipcode }) => zipcode,
+    geoCoordinates: ({ geo }) => geo
+  },
+
+  Company: {
+    bullshit: ({ bs }) => bs
+  },
+
+  GeoCoordinates: {
+    latitude: ({ lat }) => lat,
+    longitude: ({ lng }) => lng
   }
 };
 
