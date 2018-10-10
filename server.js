@@ -6,10 +6,7 @@ const client = axios.create({
   baseURL: 'https://jsonplaceholder.typicode.com'
 });
 
-const get = url => {
-  console.log(`${url} is being requested!`);
-  return client.get(url).then(({ data }) => data);
-};
+const get = url => client.get(url).then(({ data }) => data);
 
 const dataLoader = new DataLoader(urls =>
   Promise.all(urls.map(url => get(url)))
@@ -104,7 +101,7 @@ const typeDefs = `
 const resolvers = {
   Query: {
     albums: async (rootObj, { albumId, userId }) => {
-      const albums = await get('/albums');
+      const albums = await dataLoader.load('/albums');
 
       if (albumId) {
         return albums.filter(album => album.id === Number(albumId));
@@ -118,7 +115,7 @@ const resolvers = {
     },
 
     album: async (rootObj, { albumId }) => {
-      const albums = await get('/albums');
+      const albums = await dataLoader.load('/albums');
 
       return albums.find(album => album.id === Number(albumId));
     }
@@ -127,27 +124,7 @@ const resolvers = {
   Album: {
     albumId: ({ id }) => id,
 
-    // EXERCISE #4 -- Oops, we have a problem!
-    // We're causing unnecessary pressure on the https://jsonplaceholder.typicode.com API.
-    // Surprised they haven't shut us off yet :-)
-    //
-    // Go ahead and uncomment the console.log line on line 10 (up above).
-    // Go back to GraphQL Playground and request all albums (no arguments) with their associated users.
-    // 💩!  We're making the same API call a bunch of times!
-    //
-    // Part #1 --
-    // We need to dedupe these API calls.
-    // We can write our own utility but Facebook wrote a library called `dataloader`.
-    // Let's use that instead.  https://github.com/facebook/dataloader
-    //
-    // There's already a `DataLoader` instance available to us at the top of this file.
-    // Let's replace all of our async get() calls with dataLoader.load().
-    //
-    // Now uncomment the console.log() line at line 10 again (up above).
-    // If it's working properly, you'll see that we no longer overfetch.
-    //
-    // Sweet!  Now we're fetching optimally.  We are so cool!
-    user: async ({ userId }) => await get(`/users/${userId}`)
+    user: async ({ userId }) => await dataLoader.load(`/users/${userId}`)
   },
 
   User: {
