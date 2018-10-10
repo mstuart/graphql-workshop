@@ -29,13 +29,17 @@ const resolvers = {
     album: async (rootObj, { albumId }) => {
       const albums = await invoke('/albums');
 
+      // We're using Array#find to search through the albums Array to find
+      // the album that has this albumId.  Otherwise, we're returning null.
+      //
+      // NOTE: The ID scalar in GraphQL can either be a String or Number.
+      // In our schema, "albumID" is an ID, so we need to cast albumId to
+      // a Number before comparing it.
       return albums.find(album => album.id === Number(albumId));
     }
   },
 
   Album: {
-    // Here we're picking out the "id" property from Query.albums above.
-    // Our schema references the album ID as "albumId", not "id"
     albumId: ({ id }) => id
   }
 };
