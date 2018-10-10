@@ -4,7 +4,7 @@ import { invoke } from './graphql';
 const typeDefs = `
   type Query {
     # Returns all albums
-    albums: [Album]
+    albums(albumId: ID, userId: ID): [Album]
 
     # Find an album with a certain albumId
     album(albumId: ID!): Album
@@ -24,15 +24,19 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    // EXERCISE #2 -- Okay, so we have a way to fetch all of the Albums and
-    // a single Album.  What if our clients wanted to grab a subset of
-    // Albums that match any of the fields like "albumId" or "userId"
-    // Ex: If they're building a pagination or search UI
-    //
-    // Let's add two *optional* parameters that filters based on "userId" or "albumId"
-    // NOTE: Optional, not required.
-    // We still want people to be able to fetch all of the albums if they want to.
-    albums: async () => await invoke('/albums'),
+    albums: async (rootObj, { albumId, userId }) => {
+      const albums = await invoke('/albums');
+
+      if (albumId) {
+        return albums.filter(album => album.id === Number(albumId));
+      }
+
+      if (userId) {
+        return albums.filter(album => album.userId === Number(userId));
+      }
+
+      return albums;
+    },
 
     album: async (rootObj, { albumId }) => {
       const albums = await invoke('/albums');
