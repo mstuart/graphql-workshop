@@ -1,5 +1,11 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { invoke } from './graphql';
+import axios from 'axios';
+
+const client = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com'
+});
+
+const get = async url => client.get(url).then(({ data }) => data);
 
 const typeDefs = `
   type Query {
@@ -21,14 +27,14 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    // We're using an async function called "invoke" that hits the
+    // We're using an async function called "get" that hits the
     // http://jsonplaceholder.typicode.com/ API.  We're fetching
     // the GET /posts resource and returning it.
     //
     // By returning it, it's available to Album resolvers as "rootObj".
     // "rootObj" is used for passing data from parent-to-child.
     //
-    albums: async () => await invoke('/albums')
+    albums: async () => await get('/albums')
 
     // EXERCISE #1 -- Currently, we're returning the entire list of albums
     //
