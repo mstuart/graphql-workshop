@@ -1,5 +1,11 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { invoke } from './graphql';
+import axios from 'axios';
+
+const client = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com'
+});
+
+const get = async url => client.get(url).then(({ data }) => data);
 
 const typeDefs = `
   type Query {
@@ -45,11 +51,11 @@ const typeDefs = `
 //
 // Part #3 --
 // Create a "user" field within the Album type that returns your new User type
-// To get user data, use the `invoke` async function and hit the `GET /users/<id>` endpoint
+// To get user data, use the `get` async function and hit the `GET /users/<id>` endpoint
 const resolvers = {
   Query: {
     albums: async (rootObj, { albumId, userId }) => {
-      const albums = await invoke('/albums');
+      const albums = await get('/albums');
 
       if (albumId) {
         return albums.filter(album => album.id === Number(albumId));
@@ -63,7 +69,7 @@ const resolvers = {
     },
 
     album: async (rootObj, { albumId }) => {
-      const albums = await invoke('/albums');
+      const albums = await get('/albums');
 
       return albums.find(album => album.id === Number(albumId));
     }
