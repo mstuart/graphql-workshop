@@ -142,6 +142,11 @@ const resolvers = {
     //
     // There's already a `DataLoader` instance available to us at the top of this file.
     // Let's replace all of our async get() calls with dataLoader.load().
+    //
+    // Now uncomment the console.log() line at line 10 again (up above).
+    // If it's working properly, you'll see that we no longer overfetch.
+    //
+    // Sweet!  Now we're fetching optimally.  We are so cool!
     user: async ({ userId }) => await get(`/users/${userId}`)
   },
 
