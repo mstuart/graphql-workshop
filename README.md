@@ -5,7 +5,7 @@ In this workshop, we are going to create a GraphQL API that integrates with an e
 This workshop is broken up into steps that are separated by Git branches. You're likely on the `master` branch now, which has some introductions. After you read through the comments in [server.js](https://github.com/mstuart/graphql-workshop/blob/master/server.js), switch to the `step1` branch (with `$ git checkout step1`) and move forward from there. The `step1-solution` branch has the solution for `step1` and so on.  There are 6 steps to this workshop.
 
 ## Curriculum
-- `master` branch — Introduces graphql-yoga and some GraphQL concepts like typeDefs, resolvers, etc.
+- `master` branch — Introduces [graphql-yoga](https://github.com/prisma/graphql-yoga) and some GraphQL concepts like typeDefs/schema, resolvers, etc.
 - `step1` branch — Get familiar w/ adding new fields and resolvers.
 - `step2` branch — Optional and required arguments and demonstrates the use of the `rootObj`
 - `step3` branch — Deprecate a field.  Add a new field that is a “link” to another type.  This new field makes another API call.  More practice w/ schema design.
