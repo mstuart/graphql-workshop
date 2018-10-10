@@ -21,8 +21,9 @@
     "start": "nodemon -e js,graphql -- --inspect ."
   },
   "dependencies": {
-    "graphql-yoga": "^1",
-    "node-fetch": "^2.2.0"
+    "axios": "^0.18.0",
+    "dataloader": "^1.4.0",
+    "graphql-yoga": "^1"
   },
   "devDependencies": {
     "@babel/core": "^7",
