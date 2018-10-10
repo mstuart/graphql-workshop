@@ -1,5 +1,19 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { invoke } from './graphql';
+import DataLoader from 'dataloader';
+import axios from 'axios';
+
+const client = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com'
+});
+
+const get = url => {
+  console.log(`${url} is being requested!`);
+  return client.get(url).then(({ data }) => data);
+};
+
+const dataLoader = new DataLoader(urls =>
+  Promise.all(urls.map(url => get(url)))
+);
 
 const typeDefs = `
   type Query {
@@ -90,7 +104,7 @@ const typeDefs = `
 const resolvers = {
   Query: {
     albums: async (rootObj, { albumId, userId }) => {
-      const albums = await invoke('/albums');
+      const albums = await get('/albums');
 
       if (albumId) {
         return albums.filter(album => album.id === Number(albumId));
@@ -104,7 +118,7 @@ const resolvers = {
     },
 
     album: async (rootObj, { albumId }) => {
-      const albums = await invoke('/albums');
+      const albums = await get('/albums');
 
       return albums.find(album => album.id === Number(albumId));
     }
@@ -113,11 +127,22 @@ const resolvers = {
   Album: {
     albumId: ({ id }) => id,
 
-    // NOTE: This is only ever invoked if a "user" field is requested.
+    // EXERCISE #4 -- Oops, we have a problem!
+    // We're causing unnecessary pressure on the https://jsonplaceholder.typicode.com API.
+    // Surprised they haven't shut us off yet :-)
     //
-    // If you offered this capability in REST, you would pay the cost of
-    // resolving "user" whether or not your client actually needed that field.
-    user: async ({ userId }) => await invoke(`/users/${userId}`)
+    // Go ahead and uncomment the console.log line on line 10 (up above).
+    // Go back to GraphQL Playground and request all albums (no arguments) with their associated users.
+    // 💩!  We're making the same API call a bunch of times!
+    //
+    // Part #1 --
+    // We need to dedupe these API calls.
+    // We can write our own utility but Facebook wrote a library called `dataloader`.
+    // Let's use that instead.  https://github.com/facebook/dataloader
+    //
+    // There's already a `DataLoader` instance available to us at the top of this file.
+    // Let's replace all of our async get() calls with dataLoader.load().
+    user: async ({ userId }) => await get(`/users/${userId}`)
   },
 
   User: {
