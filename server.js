@@ -98,6 +98,16 @@ const typeDefs = `
   }
 `;
 
+// EXERCISE #5 -- Ok!  Last step.
+// See how we have dataLoaders everywhere?  Let's refactor that up using context.
+//
+// `graphql-yoga`, `apollo-server`, `express-graphql` and most GraphQL runtimes
+// offer a "context" object that can be shared w/ all of your resolvers.
+// It's a great place for really common/core pieces like auth states, API utilities,
+// caches, or the Express request object if your API depends on a lot of request state.
+//
+// Let's add our DataLoader instance to the context Object and refactor
+// our code to use it.  The docs will be helpful -- https://github.com/prisma/graphql-yoga#constructorprops-props-graphqlserver
 const resolvers = {
   Query: {
     albums: async (rootObj, { albumId, userId }) => {
