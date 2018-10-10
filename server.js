@@ -1,5 +1,11 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { invoke } from './graphql';
+import axios from 'axios';
+
+const client = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com'
+});
+
+const get = async url => client.get(url).then(({ data }) => data);
 
 const typeDefs = `
   type Query {
@@ -32,10 +38,10 @@ const resolvers = {
     // Let's add two *optional* parameters that filters based on "userId" or "albumId"
     // NOTE: Optional, not required.
     // We still want people to be able to fetch all of the albums if they want to.
-    albums: async () => await invoke('/albums'),
+    albums: async () => await get('/albums'),
 
     album: async (rootObj, { albumId }) => {
-      const albums = await invoke('/albums');
+      const albums = await get('/albums');
 
       return albums.find(album => album.id === Number(albumId));
     }
