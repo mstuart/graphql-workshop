@@ -8,10 +8,6 @@ const client = axios.create({
 
 const get = url => client.get(url).then(({ data }) => data);
 
-const dataLoader = new DataLoader(urls =>
-  Promise.all(urls.map(url => get(url)))
-);
-
 const typeDefs = `
   type Query {
     # Returns all albums
@@ -98,19 +94,9 @@ const typeDefs = `
   }
 `;
 
-// EXERCISE #5 -- Ok!  Last step.
-// See how we have dataLoaders everywhere?  Let's refactor that up using context.
-//
-// `graphql-yoga`, `apollo-server`, `express-graphql` and most GraphQL runtimes
-// offer a "context" object that can be shared w/ all of your resolvers.
-// It's a great place for really common/core pieces like auth states, API utilities,
-// caches, or the Express request object if your API depends on a lot of request state.
-//
-// Let's add our DataLoader instance to the context Object and refactor
-// our code to use it.  The docs will be helpful -- https://github.com/prisma/graphql-yoga#constructorprops-props-graphqlserver
 const resolvers = {
   Query: {
-    albums: async (rootObj, { albumId, userId }) => {
+    albums: async (rootObj, { albumId, userId }, { dataLoader }) => {
       const albums = await dataLoader.load('/albums');
 
       if (albumId) {
@@ -124,7 +110,7 @@ const resolvers = {
       return albums;
     },
 
-    album: async (rootObj, { albumId }) => {
+    album: async (rootObj, { albumId }, { dataLoader }) => {
       const albums = await dataLoader.load('/albums');
 
       return albums.find(album => album.id === Number(albumId));
@@ -134,7 +120,8 @@ const resolvers = {
   Album: {
     albumId: ({ id }) => id,
 
-    user: async ({ userId }) => await dataLoader.load(`/users/${userId}`)
+    user: async ({ userId }, args, { dataLoader }) =>
+      await dataLoader.load(`/users/${userId}`)
   },
 
   User: {
@@ -158,6 +145,12 @@ const resolvers = {
   }
 };
 
-const server = new GraphQLServer({ typeDefs, resolvers });
+const server = new GraphQLServer({
+  typeDefs,
+  resolvers,
+  context: {
+    dataLoader: new DataLoader(urls => Promise.all(urls.map(url => get(url))))
+  }
+});
 
 server.start(() => console.log('Server is running on localhost:4000'));
