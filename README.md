@@ -28,4 +28,6 @@ $ open http://localhost:4000
 
 After running the server and launching [localhost:4000](http://localhost:4000), you'll end up at GraphQL Playground. GraphQL Playground is a great tool for writing and testing out queries. GraphQL Playground has some docs to explore on the right panel and offers an auto-complete-as-you-type experience. This is what GraphQL is all about, the developer experience! :-)
 
-<img width="1400" alt="screen shot 2018-05-09 at 23 12 38" src="https://github.paypal.com/storage/user/718/files/8116bb40-53de-11e8-8386-9ba49a61a40c">
+![screen shot 2018-10-09 at 6 58 33 pm](https://user-images.githubusercontent.com/742884/46708817-7aa72300-cbf5-11e8-8851-159d991cd537.png)
+![screen shot 2018-10-09 at 6 58 43 pm](https://user-images.githubusercontent.com/742884/46708818-7c70e680-cbf5-11e8-9281-9edddd17bb14.png)
+
