@@ -1,5 +1,11 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { invoke } from './graphql';
+import axios from 'axios';
+
+const client = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com'
+});
+
+const get = async url => client.get(url).then(({ data }) => data);
 
 const typeDefs = `
   type Query {
@@ -24,10 +30,10 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    albums: async () => await invoke('/albums'),
+    albums: async () => await get('/albums'),
 
     album: async (rootObj, { albumId }) => {
-      const albums = await invoke('/albums');
+      const albums = await get('/albums');
 
       // We're using Array#find to search through the albums Array to find
       // the album that has this albumId.  Otherwise, we're returning null.
