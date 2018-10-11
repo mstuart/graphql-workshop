@@ -20,14 +20,18 @@ This workshop is broken up into steps that are separated by Git branches. You're
 
 This app relies on [graphql-yoga](https://github.com/prisma/graphql-yoga) and [merge-graphql-schemas](https://github.com/okgrow/merge-graphql-schemas).
 
+Day 1 -- Basics and beyond
 - [master](https://github.com/mstuart/graphql-workshop/tree/master) — Introduces [graphql-yoga](https://github.com/prisma/graphql-yoga) and some GraphQL concepts like typeDefs/schema, resolvers, etc.
 - [step1](https://github.com/mstuart/graphql-workshop/tree/step1) — Get familiar w/ adding new fields and resolvers.
 - [step2](https://github.com/mstuart/graphql-workshop/tree/step2) — Optional and required arguments and demonstrates the use of the `rootObj`
 - [step3](https://github.com/mstuart/graphql-workshop/tree/step3) — Deprecate a field. Add a new field that is a “link” to another type. This new field makes another API call. More practice w/ schema design.
 - [step4](https://github.com/mstuart/graphql-workshop/tree/step4) — Dedupe API calls w/ [dataloader](https://github.com/facebook/dataloader)
+
+Day 2 -- GraphQL in practice
 - [step5](https://github.com/mstuart/graphql-workshop/tree/step5) — Using `context` to share loaders between resolvers
 - TBD `step6` - Refactoring the project into a hierarchical directory structure w/ schema files and resolvers using [ne-schemata](https://github.com/nyteshade/ne-schemata).
 - TBD `step7` - Integrate w/ a GraphQL server using [react-apollo](https://github.com/apollographql/react-apollo)
+- TBD `step8` - Create a stock ticker app w/ GraphQL subscriptions
 
 ## System Requirements
 
