@@ -29,9 +29,9 @@ Day 1 -- Basics and beyond
 
 Day 2 -- GraphQL in practice
 - [step5](https://github.com/mstuart/graphql-workshop/tree/step5) — Using `context` to share loaders between resolvers
-- TBD `step6` - Refactoring the project into a hierarchical directory structure w/ schema files and resolvers using [ne-schemata](https://github.com/nyteshade/ne-schemata).
-- TBD `step7` - Integrate w/ a GraphQL server using [react-apollo](https://github.com/apollographql/react-apollo)
-- TBD `step8` - Create a stock ticker app w/ GraphQL subscriptions
+- TBD - Refactoring the project into a hierarchical directory structure w/ schema files and resolvers using [merge-graphql-schemas](https://github.com/okgrow/merge-graphql-schemas)
+- TBD - Integrate w/ a GraphQL server using [react-apollo](https://github.com/apollographql/react-apollo)
+- TBD - Create a stock ticker app w/ GraphQL subscriptions
 
 ## System Requirements
 
