@@ -26,7 +26,7 @@ This app relies on [graphql-yoga](https://github.com/prisma/graphql-yoga) and [m
 - [step3](https://github.com/mstuart/graphql-workshop/tree/step3) — Deprecate a field. Add a new field that is a “link” to another type. This new field makes another API call. More practice w/ schema design.
 - [step4](https://github.com/mstuart/graphql-workshop/tree/step4) — Dedupe API calls w/ [dataloader](https://github.com/facebook/dataloader)
 - [step5](https://github.com/mstuart/graphql-workshop/tree/step5) — Using `context` to share loaders between resolvers
-- [step6](https://github.com/mstuart/graphql-workshop/tree/step6) - Refactoring the project into a hierarchical directory structure w/ schema files and resolvers using [ne-schemata](https://github.com/nyteshade/ne-schemata).
+- TBD `step6` - Refactoring the project into a hierarchical directory structure w/ schema files and resolvers using [ne-schemata](https://github.com/nyteshade/ne-schemata).
 - TBD `step7` - Integrate w/ a GraphQL server using [react-apollo](https://github.com/apollographql/react-apollo)
 
 ## System Requirements
