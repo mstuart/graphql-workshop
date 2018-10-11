@@ -11,8 +11,8 @@ const { GraphQLServer } = require('graphql-yoga');
 // As you can imagine, you'll eventually have LOTS of schema types, enums, etc.
 //
 // These can be merged by hand using something like lodash, or safely merged using ASTs.
-// Libraries like "merge-graphql-schemas" or "ne-schemata" are good at this.
-// You can give them a directory and they'll merge all of your schema files for you.
+// `merge-graphql-schemas` is good at this.
+// You can give it a directory and it will merge all of your schema files for you.
 const typeDefs = `
   # You can add single line comments
   type Query {
