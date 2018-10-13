@@ -1,0 +1,16 @@
+type Address {
+  # The Address' first line (Ex: "123 Main St")
+  line1: String
+
+  # The Address' second line (Ex: "Apt 456")
+  line2: String
+
+  # The Address' city (Ex: "San Jose")
+  city: String
+
+  # The Address' postal code (Ex: "95050")
+  postalCode: String
+
+  # The Address' geo coordinates.  See GeoCoordinates type.
+  geoCoordinates: GeoCoordinates
+}

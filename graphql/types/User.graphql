@@ -1,0 +1,25 @@
+type User {
+  # The User's ID (Ex: "1")
+  userId: ID
+
+  # The User's name (Ex: "Leanne Graham")
+  name: String
+
+  # The User's username (Ex: "lgraham")
+  username: String
+
+  # The User's email (Ex: "lgraham@yahoo.com")
+  email: String
+
+  # The User's address. See Address type.
+  address: Address
+
+  # The User's phone number (Ex: "1-800-COLLECT")
+  phone: String
+
+  # The User's website (Ex: "google.com")
+  website: String
+
+  # The User's company. See Company type.
+  company: Company
+}

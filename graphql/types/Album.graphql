@@ -1,0 +1,13 @@
+type Album {
+  # The Album's ID
+  albumId: ID
+
+  # The title of the album (Ex: "Nevermind")
+  title: String
+
+  # The User associated with this album
+  user: User
+
+  # The User ID that is associated this album
+  userId: ID @deprecated
+}
