@@ -16,11 +16,12 @@
 
 In this workshop, we are going to create a GraphQL API that integrates with an external REST API. We are going to create schemas and resolver functions and discover some best practices along the way.
 
-This workshop is broken up into steps that are separated by Git branches. You're likely on the `master` branch now, which has some introductions. After you read through the comments in `server.js`, switch to the `step1` branch and move forward from there. The `step1-solution` branch has the solution for `step1` and so on.
+This workshop is broken up into steps that are separated by Git branches. You're likely on the `master` branch now, which has some introductions. After you read through the comments in [server.js](https://github.com/mstuart/graphql-workshop/blob/master/server.js), switch to the `step1` branch (with `$ git checkout step1`) and move forward from there. The `step1-solution` branch has the solution for `step1` and so on. There are 6 steps to this workshop.
 
-This app relies on [graphql-yoga](https://github.com/prisma/graphql-yoga) and [merge-graphql-schemas](https://github.com/okgrow/merge-graphql-schemas).
+## Curriculum
 
 Day 1 -- Basics and beyond
+
 - [master](https://github.com/mstuart/graphql-workshop/tree/master) — Introduces [graphql-yoga](https://github.com/prisma/graphql-yoga) and some GraphQL concepts like typeDefs/schema, resolvers, etc.
 - [step1](https://github.com/mstuart/graphql-workshop/tree/step1) — Get familiar w/ adding new fields and resolvers.
 - [step2](https://github.com/mstuart/graphql-workshop/tree/step2) — Optional and required arguments and demonstrates the use of the `rootObj`
@@ -28,8 +29,9 @@ Day 1 -- Basics and beyond
 - [step4](https://github.com/mstuart/graphql-workshop/tree/step4) — Dedupe API calls w/ [dataloader](https://github.com/facebook/dataloader)
 
 Day 2 -- GraphQL in practice
+
 - [step5](https://github.com/mstuart/graphql-workshop/tree/step5) — Using `context` to share loaders between resolvers
-- TBD - Refactoring the project into a hierarchical directory structure w/ schema files and resolvers using [merge-graphql-schemas](https://github.com/okgrow/merge-graphql-schemas)
+- [step6](https://github.com/mstuart/graphql-workshop/tree/step6) - Refactoring the project into a hierarchical directory structure w/ schema files and resolvers using [merge-graphql-schemas](https://github.com/okgrow/merge-graphql-schemas)
 - TBD - Integrate w/ a GraphQL server using [react-apollo](https://github.com/apollographql/react-apollo)
 - TBD - Create a stock ticker app w/ GraphQL subscriptions
 
