@@ -1,0 +1,7 @@
+type Query {
+  # Returns all albums
+  albums(albumId: ID, userId: ID): [Album]
+
+  # Find an album with a certain albumId
+  album(albumId: ID!): Album
+}

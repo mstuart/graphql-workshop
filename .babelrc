@@ -5,8 +5,7 @@
       {
         "targets": { "node": "current" },
         "modules": "commonjs",
-        "useBuiltIns": "usage",
-        "debug": true
+        "useBuiltIns": "usage"
       }
     ]
   ]

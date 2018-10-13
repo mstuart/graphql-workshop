@@ -23,7 +23,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dataloader": "^1.4.0",
-    "graphql-yoga": "^1"
+    "graphql-yoga": "^1",
+    "merge-graphql-schemas": "^1.5.7"
   },
   "devDependencies": {
     "@babel/core": "^7",

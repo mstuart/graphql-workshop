@@ -1,0 +1,10 @@
+type Company {
+  # Company's name (Ex: "Hooli")
+  name: String
+
+  # Company's catch phrase (Ex: "I like turtles")
+  catchPhrase: String
+
+  # Company's bullshit catch phrase (Ex: "Making the world a better place")
+  bullshit: String
+}

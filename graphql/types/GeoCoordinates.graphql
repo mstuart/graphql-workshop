@@ -1,0 +1,7 @@
+type GeoCoordinates {
+  # Latitude (Ex: "-37.3159")
+  latitude: String
+
+  # Longitude (Ex: "91.1496")
+  longitude: String
+}
