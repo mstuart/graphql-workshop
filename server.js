@@ -94,6 +94,25 @@ const typeDefs = `
   }
 `;
 
+// EXERCISE #6 --
+//
+// You might've wondered.. what does a real GraphQL project look like in practice?
+// This file's already almost a couple hundred lines long.
+// It does a lot. It's a server. It has all of your schema and resolvers.
+// It has all of your data-fetching and business logic.
+//
+// Let's separate our schemas and resolvers out into other files and directories.
+// Maybe in the future we can add tests alongside them too.
+//
+// Oddly enough, there aren't default tools to handle merging in a safe way.
+// As if this writing, you can't just string concat schemas because they might override each other
+// and not merge together properly.
+//
+// `merge-graphql-schemas` handles this well. There are a few other alternatives too.
+//
+// We're not going to code in this exercise. 😅
+// Switch to the "step6-solution" branch to see how a project is typically structured.
+//
 const resolvers = {
   Query: {
     albums: async (rootObj, { albumId, userId }, { dataLoader }) => {
