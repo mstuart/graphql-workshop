@@ -32,8 +32,7 @@ Day 2 -- GraphQL in practice
 
 - [step5](https://github.com/mstuart/graphql-workshop/tree/step5) — Using `context` to share loaders between resolvers
 - [step6](https://github.com/mstuart/graphql-workshop/tree/step6) - Refactoring the project into a hierarchical directory structure w/ schema files and resolvers using [merge-graphql-schemas](https://github.com/okgrow/merge-graphql-schemas)
-- TBD - Integrate w/ a GraphQL server using [react-apollo](https://github.com/apollographql/react-apollo)
-- TBD - Create a stock ticker app w/ GraphQL subscriptions
+- [step7](https://github.com/mstuart/graphql-workshop/tree/step7) - Integrate w/ a GraphQL server using [react-apollo](https://github.com/apollographql/react-apollo)
 
 ## System Requirements
 
