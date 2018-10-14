@@ -2,12 +2,15 @@ type Album {
   # The Album's ID
   albumId: ID
 
-  # The title of the album (Ex: "Nevermind")
+  # The title of the album (Ex: "Beach Photos")
   title: String
 
-  # The User associated with this album
+  # The User who created this album
   user: User
 
-  # The User ID that is associated this album
+  # The photos in this album.  Returns the first 10 photos.
+  photos: [Photo]
+
+  # The User ID that created this album
   userId: ID @deprecated
 }

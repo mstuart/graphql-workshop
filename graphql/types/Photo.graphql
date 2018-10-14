@@ -1,0 +1,13 @@
+type Photo {
+  # The photo's ID
+  photoId: ID
+
+  # The title of the album (Ex: "Bob doing a flip on a jet ski")
+  title: String
+
+  # The URL of the photo (Ex: "https://via.placeholder.com/600/92c952")
+  url: String
+
+  # The thumbnail URL of the photo (Ex: "https://via.placeholder.com/150/92c952")
+  thumbnailUrl: String
+}
