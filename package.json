@@ -23,6 +23,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dataloader": "^1.4.0",
+    "graphql": "^14.0.2",
     "graphql-yoga": "^1",
     "merge-graphql-schemas": "^1.5.7"
   },
