@@ -11,10 +11,5 @@
 //
 //
 //
-if (process.versions.node.split('.')[0] < 8) {
-  console.error('Please run node version 8 or better.');
-  process.exit(1);
-}
-
 require('@babel/register');
 require('./server');
