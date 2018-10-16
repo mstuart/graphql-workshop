@@ -1,8 +1,15 @@
-// exit early from incompatible node versions
-if (process.versions.node.match(/\d/)[0] < 8) {
-  console.error('Please run node v8 or newer.');
-  return;
-}
-
+//
+//
+//
+//
+//
+//
+// If you're reading this, check out server.js instead.
+// Nothing to see here!
+//
+//
+//
+//
+//
 require('@babel/register');
 require('./server');
