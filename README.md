@@ -10,7 +10,7 @@
 - [Topics covered](#topics-covered)
 - [System Requirements](#system-requirements)
 - [Installation](#installation)
-- [Running the app](#running-the-app)
+- [Running the app](#running-the-app) 
 
 ## Topics covered
 
