@@ -21,7 +21,7 @@
     "start": "nodemon -e js,graphql -- --inspect ."
   },
   "dependencies": {
-    "graphql-yoga": "^1"
+    "graphql-yoga": "^5"
   },
   "devDependencies": {
     "@babel/core": "^7",
