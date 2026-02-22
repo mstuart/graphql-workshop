@@ -27,7 +27,7 @@
     "@babel/core": "^7",
     "@babel/preset-env": "^7",
     "@babel/register": "^7",
-    "nodemon": "^1.18.4",
+    "nodemon": "^3.1.14",
     "prettier": "^1.14.3"
   },
   "prettier": {
