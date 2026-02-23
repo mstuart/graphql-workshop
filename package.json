@@ -28,7 +28,7 @@
     "@babel/preset-env": "^7",
     "@babel/register": "^7",
     "nodemon": "^3.1.14",
-    "prettier": "^1.14.3"
+    "prettier": "^3.8.1"
   },
   "prettier": {
     "printWidth": 80,
