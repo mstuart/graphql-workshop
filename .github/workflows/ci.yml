@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+# Teaching material rather than a published package: there is no test suite, so
+# CI verifies that dependencies install and every source file parses.
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - name: Syntax-check sources
+        run: |
+          found=0
+          while IFS= read -r f; do
+            node --check "$f"
+            found=$((found+1))
+          done < <(find . -name '*.js' -not -path './node_modules/*' -not -path './.git/*')
+          echo "checked $found files"
+          [ "$found" -gt 0 ]
