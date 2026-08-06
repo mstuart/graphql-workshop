@@ -1,5 +1,14 @@
-# graphql-workshop <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/1024px-GraphQL_Logo.svg.png" width="50">
+<div align="center">
+  <img src="docs/assets/logo.svg" alt="graphql-workshop — ⚡GraphQL Workshop @ Venmo -- Fall 2018 🏎️" width="720">
+</div>
 
+<p align="center"><strong>⚡GraphQL Workshop @ Venmo -- Fall 2018 🏎️</strong></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/node-%E2%89%A58-339933.svg" alt="Node 8+">
+</p>
+
+---
 [![PRs Welcome][prs-badge]][prs]
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
