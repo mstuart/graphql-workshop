@@ -7,6 +7,7 @@
 <p align="center">
   <a href="https://github.com/mstuart/graphql-workshop/actions/workflows/ci.yml"><img src="https://github.com/mstuart/graphql-workshop/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/node-%E2%89%A58-339933.svg" alt="Node 8+">
+  <a href="https://deepwiki.com/mstuart/graphql-workshop"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </p>
 
 ---
