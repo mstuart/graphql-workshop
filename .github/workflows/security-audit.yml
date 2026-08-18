@@ -1,0 +1,131 @@
+name: Security Audit
+
+# Dependabot already opens PRs for advisories it can fix on its own. This job
+# covers the gap: advisories it cannot fix unaided (transitive pins needing an
+# `overrides` entry) and fixable ones whose PRs are sitting unmerged.
+#
+# Deliberately does NOT gate pull requests. A newly published advisory would
+# turn every PR red, including the Dependabot PR carrying the fix, which is how
+# vulnerabilities pile up in the first place. It reports instead of blocking.
+
+on:
+  schedule:
+    # Mondays 06:17 UTC, after Dependabot's weekly run so same-day fixes land first.
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: security-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # Some repos intentionally ship without a committed lockfile; `npm ci`
+      # requires one, so fall back to `npm install` in that case.
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install --package-lock-only
+          fi
+
+      - name: Run npm audit
+        id: audit
+        run: |
+          # npm audit exits non-zero when it finds anything; capture rather than fail.
+          npm audit --audit-level=high --json > audit.json || true
+          node --input-type=module <<'EOF' >> "$GITHUB_OUTPUT"
+          import { readFileSync } from 'node:fs';
+
+          let report;
+          try {
+            report = JSON.parse(readFileSync('audit.json', 'utf8'));
+          } catch {
+            // A malformed report means the audit itself failed. Surface that
+            // rather than silently reporting "all clear".
+            console.log('status=error');
+            console.log('count=0');
+            process.exit(0);
+          }
+
+          const severities = ['high', 'critical'];
+          const found = Object.values(report.vulnerabilities ?? {}).filter((v) =>
+            severities.includes(v.severity),
+          );
+
+          const lines = found
+            .map((v) => {
+              const advisories = (v.via ?? [])
+                .filter((entry) => typeof entry === 'object')
+                .map((entry) => `[${entry.title}](${entry.url})`);
+              const fix = v.fixAvailable
+                ? typeof v.fixAvailable === 'object'
+                  ? `\`${v.fixAvailable.name}@${v.fixAvailable.version}\`${v.fixAvailable.isSemVerMajor ? ' (semver-major)' : ''}`
+                  : 'yes'
+                : 'none available';
+              return [
+                `- **${v.name}** (${v.severity}, ${v.isDirect ? 'direct' : 'transitive'})`,
+                `  - fix: ${fix}`,
+                ...advisories.map((a) => `  - ${a}`),
+              ].join('\n');
+            })
+            .join('\n');
+
+          console.log(`status=${found.length ? 'vulnerable' : 'clean'}`);
+          console.log(`count=${found.length}`);
+          console.log(`body<<AUDIT_EOF\n${lines}\nAUDIT_EOF`);
+          EOF
+
+      - name: Open or update tracking issue
+        if: steps.audit.outputs.status == 'vulnerable'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COUNT: ${{ steps.audit.outputs.count }}
+          DETAILS: ${{ steps.audit.outputs.body }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TITLE="Security: $COUNT high/critical advisory(ies) in dependencies"
+          BODY=$(printf '%s\n\n%s\n\n---\nFound by [Security Audit](%s). Updated automatically; closes itself when `npm audit --audit-level=high` is clean.\n\nIf a fix needs a transitive pin Dependabot cannot express, add an `overrides` entry to `package.json`.\n' \
+            "$DETAILS" "" "$RUN_URL")
+
+          # Create the label first: `gh issue list --label` errors when the
+          # label does not exist yet, which is the state on the first run.
+          gh label create security-audit --color B60205 \
+            --description "Raised by the scheduled dependency audit" 2>/dev/null || true
+
+          EXISTING=$(gh issue list --label security-audit --state open \
+            --json number --jq '.[0].number // empty' 2>/dev/null || true)
+
+          if [ -n "$EXISTING" ]; then
+            gh issue edit "$EXISTING" --title "$TITLE" --body "$BODY"
+            echo "Updated issue #$EXISTING"
+          else
+            gh issue create --title "$TITLE" --body "$BODY" --label security-audit
+          fi
+
+      - name: Close tracking issue when clean
+        if: steps.audit.outputs.status == 'clean'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(gh issue list --label security-audit --state open --json number --jq '.[].number' 2>/dev/null || true); do
+            gh issue close "$n" --comment "\`npm audit --audit-level=high\` is now clean."
+            echo "Closed issue #$n"
+          done
+
+      - name: Fail if the audit could not be parsed
+        if: steps.audit.outputs.status == 'error'
+        run: |
+          echo "::error::npm audit did not produce a parseable report"
+          exit 1
