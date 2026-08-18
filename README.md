@@ -81,16 +81,16 @@ To get the app up and running (and really see if it worked), run:
 
 ```
 $ npm start
-$ open http://localhost:4000
+$ open http://localhost:4000/graphql
 ```
 
-`npm start` will start the API server. Your browser should open up automatically to `http://localhost:4000` (if it doesn't, just open that yourself) and you should be able to start messing around with the app.
+`npm start` will start the API server. Your browser should open up automatically to `http://localhost:4000/graphql` (if it doesn't, just open that yourself) and you should be able to start messing around with the app.
 
 Here's what you should be looking at:
 
 <img width="800" alt="screen shot 2018-05-09 at 23 12 38" src="https://user-images.githubusercontent.com/742884/46708817-7aa72300-cbf5-11e8-8851-159d991cd537.png">
 
-GraphQL Playground is a great tool for writing and testing out queries. GraphQL Playground has some docs to explore on the right panel and offers an auto-complete-as-you-type experience. This is what GraphQL is all about, the developer experience! :-)
+GraphiQL is a great tool for writing and testing out queries. GraphiQL has some docs to explore on the right panel and offers an auto-complete-as-you-type experience. This is what GraphQL is all about, the developer experience! :-)
 
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
