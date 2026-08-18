@@ -1,9 +1,10 @@
 // "graphql-yoga" is a pretty neat package 📦 for getting started w/ GraphQL quickly.
-// It's built on top of apollo-server (or Express) w/ some nice defaults.
-// It will include an IDE called GraphQL Playground for testing queries.
-// To read more about it, see https://github.com/prisma/graphql-yoga
+// It's a spec-compliant GraphQL server w/ some nice defaults.
+// It includes an IDE called GraphiQL for testing queries.
+// To read more about it, see https://the-guild.dev/graphql/yoga-server
 // ⚡
-const { GraphQLServer } = require('graphql-yoga');
+const { createYoga, createSchema } = require('graphql-yoga');
+const { createServer } = require('node:http');
 
 // "typeDefs" is your GraphQL schema.
 //
@@ -53,7 +54,15 @@ const resolvers = {
 // resolver functions.  This gets interesting when you can fetch schemas
 // remotely, mutate them, and pass them off to your server.
 // Google "GraphQL schema stitching" if you're interested.
-const server = new GraphQLServer({ typeDefs, resolvers });
+//
+// `createSchema` combines the typeDefs and resolvers into an executable
+// schema, and `createYoga` wraps it in a request handler.
+const yoga = createYoga({ schema: createSchema({ typeDefs, resolvers }) });
+
+// Yoga is just a plain Node request handler, so any HTTP server can serve it.
+const server = createServer(yoga);
 
 // Hello world!
-server.start(() => console.log('Server is running on localhost:4000'));
+server.listen(4000, () =>
+  console.log('Server is running on http://localhost:4000/graphql')
+);

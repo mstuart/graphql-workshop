@@ -3,10 +3,10 @@
     [
       "@babel/preset-env",
       {
-        "targets": { "node": "current" },
-        "modules": "commonjs",
-        "useBuiltIns": "usage",
-        "debug": true
+        "targets": {
+          "node": "current"
+        },
+        "modules": "commonjs"
       }
     ]
   ]
